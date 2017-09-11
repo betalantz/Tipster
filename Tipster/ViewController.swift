@@ -47,8 +47,15 @@ class ViewController: UIViewController {
         updateUI()
     }
     @IBAction func changeTipPerc(_ sender: UISlider) {
-        var currTipPerc = Int(sender.value)
+        let currTipPerc = Int(sender.value)
         print("Tip Percentage changing to \(currTipPerc)")
+        var multiplier = 0
+        for i in 0..<TipPercCollection.count {
+            var TipPercMultiplied = currTipPerc
+            TipPercMultiplied += multiplier
+            TipPercCollection[i].text = "\(TipPercMultiplied)%"
+            multiplier += 5
+        }
     }
     func updateUI() {
         billAmt.text = billAmount
