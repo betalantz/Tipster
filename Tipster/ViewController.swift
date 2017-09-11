@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var numbButtonCollection: [UIButton]!
+    @IBOutlet weak var billAmt: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +23,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func numbButtonPressed(_ sender: UIButton) {
+        print("Number \(sender.tag) pressed")
+    }
+    
 }
 
