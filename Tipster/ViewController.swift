@@ -75,30 +75,57 @@ class ViewController: UIViewController {
         outputCalcs()
     }
     func outputCalcs() {
-        let billAmount = Float(billDisplay)
-        let grpSize = Int(grpSizeSlider.value)
-        let tipAmount = ((Float(tipPercent)/100)*billAmount!) / Float(grpSize)
-        let finalAmount = (billAmount! + tipAmount) / Float(grpSize)
+        if let billAmount = Float(billDisplay) {
+            let grpSize = Int(grpSizeSlider.value)
+            let tipAmount = ((Float(tipPercent)/100)*billAmount) / Float(grpSize)
+            let finalAmount = (billAmount + tipAmount) / Float(grpSize)
 
-        var multiplier = 0
-        for i in 0..<tipAmtCollection.count {
-                var tipAmtMultiplied = tipAmount
-                tipAmtMultiplied += Float(multiplier)
-                let tipFormat = String.localizedStringWithFormat("%.2f", tipAmtMultiplied)
-                tipAmtCollection[i].text = (tipFormat)
-                multiplier += 5
+            var multiplier = 0
+            for i in 0..<tipAmtCollection.count {
+                    var tipAmtMultiplied = tipAmount
+                    tipAmtMultiplied += Float(multiplier)
+                    let tipFormat = String.localizedStringWithFormat("%.2f", tipAmtMultiplied)
+                    tipAmtCollection[i].text = (tipFormat)
+                    multiplier += 5
+                }
+            var mult = 0
+            for x in 0..<finalAmtCollection.count {
+                var finalAmtMultiplied = finalAmount
+                finalAmtMultiplied += Float(mult)
+                let finalFormat = String.localizedStringWithFormat("%.2f", finalAmtMultiplied)
+                finalAmtCollection[x].text = finalFormat
+                mult += 5
             }
-        var mult = 0
-        for x in 0..<finalAmtCollection.count {
-            var finalAmtMultiplied = finalAmount
-            finalAmtMultiplied += Float(mult)
-            let finalFormat = String.localizedStringWithFormat("%.2f", finalAmtMultiplied)
-            finalAmtCollection[x].text = finalFormat
-            mult += 5
         }
-                
 //        print(tipFormat)
 //        print(finalFormat)
+    }
+    @IBAction func reset(_ sender: UIButton) {
+        billDisplay = ""
+//        tipPercent = 0
+        for i in 0..<tipAmtCollection.count {
+            tipAmtCollection[i].text = "0.00"
+        }
+        for x in 0..<finalAmtCollection.count {
+            finalAmtCollection[x].text = "0.00"
+        }
+        var multiplier = 5
+        for i in 0..<TipPercCollection.count {
+            var TipPercMultiplied = 0
+            TipPercMultiplied += multiplier
+            TipPercCollection[i].text = "\(TipPercMultiplied)%"
+            multiplier += 5
+        }
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tipPercSlider.setValue(5, animated:true)
+        })
+//        tipPercSlider.value = 10
+        UIView.animate(withDuration: 0.2, animations: {
+            self.grpSizeSlider.setValue(1, animated:true)
+        })
+        grpSize.text = "1"
+//        grpSizeSlider.value = grpSizeSlider.minimumValue
+        updateUI()
     }
     
     func updateUI() {
