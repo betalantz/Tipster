@@ -77,25 +77,24 @@ class ViewController: UIViewController {
     func outputCalcs() {
         let billAmount = Float(billDisplay)
         let grpSize = Int(grpSizeSlider.value)
-        let tipAmount = (billAmount! / Float(tipPercent)) / Float(grpSize)
+        let tipAmount = ((Float(tipPercent)/100)*billAmount!) / Float(grpSize)
         let finalAmount = (billAmount! + tipAmount) / Float(grpSize)
 
-        
-        
-        
         var multiplier = 0
         for i in 0..<tipAmtCollection.count {
-            for x in 0..<finalAmtCollection.count {
                 var tipAmtMultiplied = tipAmount
                 tipAmtMultiplied += Float(multiplier)
                 let tipFormat = String.localizedStringWithFormat("%.2f", tipAmtMultiplied)
                 tipAmtCollection[i].text = (tipFormat)
-                var finalAmtMultiplied = finalAmount
-                finalAmtMultiplied += Float(multiplier)
-                let finalFormat = String.localizedStringWithFormat("%.2f", finalAmtMultiplied)
-                finalAmtCollection[x].text = finalFormat
                 multiplier += 5
             }
+        var mult = 0
+        for x in 0..<finalAmtCollection.count {
+            var finalAmtMultiplied = finalAmount
+            finalAmtMultiplied += Float(mult)
+            let finalFormat = String.localizedStringWithFormat("%.2f", finalAmtMultiplied)
+            finalAmtCollection[x].text = finalFormat
+            mult += 5
         }
                 
 //        print(tipFormat)
